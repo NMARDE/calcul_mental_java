@@ -7,20 +7,21 @@ public class User implements Serializable {
 	private String id;
 	private String login;
 	private String password;
-	private int nbConnections;
+	private String nom;
 	
 	public User() {}
 	
-	public User( String login, String password ) {
+	public User( String login, String password, nom) {
 		this.login = login;
 		this.password = password;
+		this.nom = nom;
 	}
 	
-	public User( String id, String login, String password, int nbConnections ) {
+	public User( String id, String login, String password, String nom ) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
-		this.nbConnections = nbConnections;
+		this.nom = nom;
 	}
 	
 	public String getId() {
@@ -47,12 +48,12 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
-	public int getNbConnections() {
-		return nbConnections;
+	public int getNom() {
+		return nom;
 	}
 	
-	public void setNbConnections( int nbConnections ) {
-		this.nbConnections = nbConnections;
+	public void setNom( String nom ) {
+		this.nom = nom;
 	}
 	
 	@Override
@@ -61,7 +62,7 @@ public class User implements Serializable {
 		sb.append( "id='" ).append( id ).append( '\'' );
 		sb.append( ", login='" ).append( login ).append( '\'' );
 		sb.append( ", password='" ).append( password ).append( '\'' );
-		sb.append( ", nbConnections=" ).append( nbConnections );
+		sb.append( ", nom=" ).append( nom );
 		sb.append( '}' );
 		return sb.toString();
 	}
