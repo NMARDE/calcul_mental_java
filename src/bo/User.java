@@ -11,7 +11,7 @@ public class User implements Serializable {
 	
 	public User() {}
 	
-	public User( String login, String password, nom) {
+	public User( String login, String password, String nom) {
 		this.login = login;
 		this.password = password;
 		this.nom = nom;
@@ -48,7 +48,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
-	public int getNom() {
+	public String getNom() {
 		return nom;
 	}
 	
