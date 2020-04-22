@@ -33,7 +33,7 @@ public class LoginBean implements Serializable {
 		try {
 			User user = DAOFactory.getUserDAO().authenticate( login, password );
 			if ( null == user ) {
-				message = "Mauvais id, merci de recommencer!!!";
+				message = "Nom de compte ou mot de passe incorrect.";
 			} else {
 				HttpSession session = request.getSession( true );
 				session.setAttribute( CURRENT_USER_SESSION_KEY, user );

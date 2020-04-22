@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class UserDAO implements IUserDAO {
 	
-	private static final String AUTHENT_QUERY = "SELECT * FROM user WHERE login = ? AND password = ?";
+	private static final String AUTHENT_QUERY = "SELECT * FROM User WHERE login = ? AND password = ?";
 	
 	@Override
 	public User authenticate( String login, String password ) throws SQLException {
