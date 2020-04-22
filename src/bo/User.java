@@ -9,8 +9,6 @@ public class User implements Serializable {
 	private String password;
 	private String nom;
 	
-	public User() {}
-	
 	public User( String login, String password, String nom) {
 		this.login = login;
 		this.password = password;
