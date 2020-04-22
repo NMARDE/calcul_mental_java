@@ -1,6 +1,7 @@
 package bo;
 
 import java.io.Serializable;
+import src.exception.ReponseUser;
 
 public class Expression implements Serializable {
 	
@@ -11,12 +12,12 @@ public class Expression implements Serializable {
 	private Partie unePartie;
 
 
-	public Expression(String id, Operation[] tableauOperation, double resultatAttendu, double reponseUser, Partie unePartie) {
+	public Expression(String id, Partie unePartie) {
 		this.id = id;
+		this.unePartie = unePartie;
 		this.tableauOperation = tableauOperation;
 		this.resultatAttendu = resultatAttendu;
-		this.reponseUser = reponseUser;
-		this.unePartie = unePartie;
+
 	}
 
 	public String getId() {
@@ -57,5 +58,15 @@ public class Expression implements Serializable {
 
 	public void setUnePartie(Partie unePartie) {
 		this.unePartie = unePartie;
+	}
+
+	public boolean verifierResultat(String reponseUser) throws ReponseUserException{
+		try {
+			setReponseUser(Double.valueof(reponseUser));
+		} catch (NumberFormatException nfe) {
+			throw new ReponseUserException("Ceci n'est pas un nombre")
+		}
+		return getResultatAttendu() == getReponseUser()
+
 	}
 }

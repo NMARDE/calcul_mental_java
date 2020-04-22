@@ -10,10 +10,8 @@ public class Partie implements Serializable {
 	private String difficulte;
 	private User unUser;
 
-	public Partie(String id, int score, dataTime temps, String difficulte, bo.User unUser) {
+	public Partie(String id, String difficulte, bo.User unUser) {
 		this.id = id;
-		this.score = score;
-		this.temps = temps;
 		this.difficulte = difficulte;
 		this.unUser = unUser;
 	}
