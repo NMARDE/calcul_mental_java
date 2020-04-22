@@ -49,11 +49,11 @@ public class Partie implements Serializable {
 		this.temps = temps;
 	}
 
-	public Difficulte getNiveau() {
+	public Difficulte getDifficulte() {
 		return niveau;
 	}
 
-	public void setNiveau(Difficulte niveau) {
+	public void setDifficulte(Difficulte niveau) {
 		this.niveau = niveau;
 	}
 

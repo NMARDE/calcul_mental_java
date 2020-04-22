@@ -3,10 +3,49 @@ package bo;
 import exception.OperateurException;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Operation implements Serializable {
 
-	public Operation() {
+	private double pOperante;
+	private double dOperante;
+	private Operateur operateur;
+
+	public Operation(double pOperante, double dOperante, Operateur operateur) {
+		this.pOperante = pOperante;
+		this.dOperante = dOperante;
+		this.operateur = operateur;
+	}
+
+	public Operation(double pOperante, Operateur operateur) {
+		this.pOperante = pOperante;
+		this.dOperante = 0;
+		this.operateur = operateur;
+	}
+
+
+	public double getpOperante() {
+		return pOperante;
+	}
+
+	public void setpOperante(double pOperante) {
+		this.pOperante = pOperante;
+	}
+
+	public double getdOperante() {
+		return dOperante;
+	}
+
+	public void setdOperante(double dOperante) {
+		this.dOperante = dOperante;
+	}
+
+	public Operateur getOperateur() {
+		return operateur;
+	}
+
+	public void setOperateur(Operateur operateur) {
+		this.operateur = operateur;
 	}
 
 	public enum Operateur {
@@ -28,18 +67,40 @@ public class Operation implements Serializable {
 			return type;
 		}
 
+		public boolean isUnaire() {
+			boolean isUnaire = true;
+			switch (this) {
+				case Inverser:
+				case RacineCarre:
+					break;
+				default:
+					isUnaire = false;
+					break;
+			}
+
+			return isUnaire;
+		}
+
+		private static final Operateur[] VALUES = values();
+		private static final int SIZE = VALUES.length;
+		private static final Random RANDOM = new Random();
+
+		public static Operateur getRandomOperateur()  {
+			return VALUES[RANDOM.nextInt(SIZE)];
+		}
+
 	}
 
-	public double calcul(double pOperante, Operateur op) throws OperateurException {
+	public double calcul() throws OperateurException {
 
-		return calcul(pOperante, 0, op);
-	}
+		double pOperante = getpOperante();
+		double dOperante = getdOperante();
+		Operateur operateur = getOperateur();
 
-	public double calcul(double pOperante, double dOperante, Operateur op) throws OperateurException {
 
 		double resultat = 0;
 
-		switch (op) {
+		switch (operateur) {
 			case Somme:
 				resultat = pOperante + dOperante;
 				break;
