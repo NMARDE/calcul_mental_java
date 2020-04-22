@@ -99,10 +99,10 @@ public class UserDAO implements IUserDAO {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "id" ));
+					user.setId(rs.getString( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
-					user.setNom( rs.getString( "nom" ) );
+					user.setNom( rs.getString( "nomUser" ) );
 				}
 			}
 		} catch (SQLException throwables) {
