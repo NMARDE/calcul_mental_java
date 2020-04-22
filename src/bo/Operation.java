@@ -1,85 +1,71 @@
 package bo;
 
+import exception.OperateurException;
+
 import java.io.Serializable;
 
-public class Expression implements Serializable {
+public class Operation implements Serializable {
 
-	public Expression() {
+	public Operation() {
 	}
 
-	private enum Operateur {
-		Somme ("+"),
-		Difference ("-"),
-		Multiplcation ("*"),
-		Division ("/");
-		Inverser ("inv");
-		RacineCarre ("rac");
+	public enum Operateur {
+		Somme("+"),
+		Difference("-"),
+		Multiplcation("*"),
+		Division("/"),
+		Inverser("inv"),
+		RacineCarre("rac"),
+		;
+
+		private String type;
+
+		Operateur(String type) {
+			this.type = type;
+		}
+
+		public String getType() {
+			return type;
+		}
+
 	}
 
-	public double calcul(double pOperante, String Operateur) throws OperateurException {
+	public double calcul(double pOperante, Operateur op) throws OperateurException {
 
-		return (pOperante, null, Operateur);
+		return calcul(pOperante, 0, op);
 	}
 
-	public double calcul(double pOperante, double dOperante, String Operateur) throws OperateurException {
+	public double calcul(double pOperante, double dOperante, Operateur op) throws OperateurException {
 
-		double resultat = null;
+		double resultat = 0;
 
-		switch(Operateur) {
-			case this.Operateur.Somme:
-				resultat = additionner(pOperante, dOperante);
+		switch (op) {
+			case Somme:
+				resultat = pOperante + dOperante;
 				break;
-			case this.Operateur.Difference:
-				resultat = soustraire(pOperante, dOperante);
+			case Difference:
+				resultat = pOperante - dOperante;
 				break;
-			case this.Operateur.Multiplcation:
-				resultat = multiplier(pOperante, dOperante);
+			case Multiplcation:
+				resultat = pOperante * dOperante;
 				break;
-			case this.Operateur.Division:
-				resultat = diviser(pOperante, dOperante);
+			case Division:
+				resultat = pOperante / dOperante;
 				break;
-			case this.Operateur.Inverser:
-				resultat = inverser(pOperante);
+			case Inverser:
+				resultat = 1 / pOperante;
 				break;
-			case this.Operateur.RacineCarre:
-				resultat = racineCarre(pOperante);
+			case RacineCarre:
+				resultat = Math.sqrt(pOperante);
 				break;
 			default:
-				throw new OperateurException ("Operateur inconnu");
+				throw new OperateurException("Operateur inconnu");
 		}
 
 		return resultat;
 
-	 }
-
-	 private double additionner(double pOperante, double dOperante) {
-
-		return pOperante + dOperante;
 	}
+}
 
-	private double additionner(double pOperante, double dOperante) {
-
-		return pOperante - dOperante;
-	}
-
-	private double multiplier(double pOperante, double dOperante) {
-
-		return pOperante * dOperante;
-	}
-
-	private double diviser(double pOperante, double dOperante) {
-
-		return pOperante / dOperante;
-	}
-
-	private double inverser(double pOperante) {
-
-		return 1 / pOperante;
-	}
-
-	private double racineCarre(double pOperante) {
-
-		return Math.sqrt(pOperante);
-	}
 
 

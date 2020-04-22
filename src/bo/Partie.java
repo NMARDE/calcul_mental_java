@@ -1,19 +1,27 @@
 package bo;
 
 import java.io.Serializable;
+import java.sql.Time;
 
 public class Partie implements Serializable {
 	
 	private String id;
 	private int score;
-	private dataTime temps;
-	private String difficulte;
-	private User unUser;
+	private Time temps;
+	private Utilisateur unUtilisateur;
+	private Difficulte niveau;
 
-	public Partie(String id, String difficulte, bo.User unUser) {
+	public enum Difficulte {
+		Facile,
+		Normal,
+		Difficile,
+		;
+	}
+
+	public Partie(String id, Difficulte niveau, bo.Utilisateur unUtilisateur) {
 		this.id = id;
-		this.difficulte = difficulte;
-		this.unUser = unUser;
+		this.niveau = niveau;
+		this.unUtilisateur = unUtilisateur;
 	}
 
 
@@ -33,28 +41,28 @@ public class Partie implements Serializable {
 		this.score = score;
 	}
 
-	public dataTime getTemps() {
+	public Time getTemps() {
 		return temps;
 	}
 
-	public void setTemps(dataTime temps) {
+	public void setTemps(Time temps) {
 		this.temps = temps;
 	}
 
-	public String getDifficulte() {
-		return difficulte;
+	public Difficulte getNiveau() {
+		return niveau;
 	}
 
-	public void setDifficulte(String difficulte) {
-		this.difficulte = difficulte;
+	public void setNiveau(Difficulte niveau) {
+		this.niveau = niveau;
 	}
 
-	public bo.User getUnUser() {
-		return unUser;
+	public bo.Utilisateur getUtilisateur() {
+		return unUtilisateur;
 	}
 
-	public void setUnUser(bo.User unUser) {
-		this.unUser = unUser;
+	public void setUtilisateur(bo.Utilisateur unUser) {
+		this.unUtilisateur = unUser;
 	}
 
 }
