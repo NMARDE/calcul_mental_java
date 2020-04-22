@@ -1,10 +1,10 @@
 package dal;
 
-import bo.User;
+import bo.Utilisateur;
 
 import java.sql.SQLException;
 
-public interface IUserDAO extends IDAO<String, User> {
-	
-	User authenticate( String login, String password ) throws SQLException;
+public interface IUserDAO extends IDAO<String, Utilisateur> {
+
+	Utilisateur authenticate(String login, String password ) throws SQLException;
 }

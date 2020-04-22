@@ -33,16 +33,19 @@ public class DAOFactory {
 		return dao;
 	}
 	
+	/*
 	public static IContactDAO getContactDAO() {
 		
 		return null;
 	}
-	
+	*/
+	/*
 	public static IRequestDAO getRequestDAO() {
 		
 		return null;
 	}
-	
+	*/
+
 	public static void init( ServletContext servletContext ) throws ClassNotFoundException {
 		
 		mode = servletContext.getInitParameter( "DAO_MODE" );

@@ -1,6 +1,6 @@
 package dal.jdbc;
 
-import bo.User;
+import bo.Utilisateur;
 import dal.DAOFactory;
 import dal.IUserDAO;
 
@@ -14,8 +14,8 @@ public class UserDAO implements IUserDAO {
 	private static final String FIND_ID_QUERY = "SELECT * FROM user WHERE id = ?";
 	
 	@Override
-	public User authenticate( String login, String password ) throws SQLException {
-		User user = null;
+	public Utilisateur authenticate(String login, String password ) throws SQLException {
+		Utilisateur user = null;
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( AUTHENT_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
 			ps.setString( 1, login );
@@ -23,7 +23,7 @@ public class UserDAO implements IUserDAO {
 			try( ResultSet rs = ps.executeQuery() ) {
 				if ( rs.next()) {
 					rs.updateRow();
-					user = new User();
+					user = new Utilisateur();
 					user.setId(rs.getString( "id" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
@@ -35,41 +35,60 @@ public class UserDAO implements IUserDAO {
 	}
 	
 	@Override
-	public void create( User user ) {
+	public void create( Utilisateur user ) {
 
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
-			ps.setString( 1, user.get() );
+			ps.setString( 1, user.getLogin() );
 			ps.setString( 2, user.getPassword() );
 			ps.setString( 3, user.getNom() );
 			try( ResultSet rs = ps.executeQuery() ) {
 			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
 		}
 	}
 
 
 	@Override
-	public User findById( String idUser ) {
-		User user = null;
+	public void update(Utilisateur object) {
+
+	}
+
+	@Override
+	public void deleteById(String s) {
+
+	}
+
+	@Override
+	public void delete(Utilisateur object) {
+
+	}
+
+	@Override
+	public Utilisateur findById( String idUser ) {
+		Utilisateur user = null;
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( FIND_ID_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
 			ps.setString( 1, idUser );
 			try( ResultSet rs = ps.executeQuery() ) {
 				if ( rs.next()) {
 					rs.updateRow();
-					user = new User();
+					user = new Utilisateur();
 					user.setId(rs.getString( "id" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
 					user.setNom( rs.getString( "nom" ) );
 				}
 			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
 		}
 		return user;
 	}
 	
 	@Override
-	public Collection<User> findAll() {
+	public Collection<Utilisateur> findAll() {
 		return null;
 	}
 }

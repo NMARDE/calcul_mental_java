@@ -2,20 +2,24 @@ package bo;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class Utilisateur implements Serializable {
 	
 	private String id;
 	private String login;
 	private String password;
 	private String nom;
-	
-	public User( String login, String password, String nom) {
+
+	public Utilisateur() {
+
+	}
+
+	public Utilisateur( String login, String password, String nom) {
 		this.login = login;
 		this.password = password;
 		this.nom = nom;
 	}
 	
-	public User( String id, String login, String password, String nom ) {
+	public Utilisateur( String id, String login, String password, String nom ) {
 		this.id = id;
 		this.login = login;
 		this.password = password;

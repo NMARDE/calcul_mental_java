@@ -1,6 +1,6 @@
 package model;
 
-import bo.User;
+import bo.Utilisateur;
 import dal.DAOFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +31,7 @@ public class LoginBean implements Serializable {
 		boolean result = false;
 		
 		try {
-			User user = DAOFactory.getUserDAO().authenticate( login, password );
+			Utilisateur user = DAOFactory.getUserDAO().authenticate( login, password );
 			if ( null == user ) {
 				message = "Mauvais id, merci de recommencer!!!";
 			} else {
