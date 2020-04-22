@@ -46,9 +46,12 @@
 				<div class="callout alert">
 					<p>${loginBean.message}</p>
 				</div>
+
 			</c:if>
+		</div>
 			<form method="POST" class="form-signin" action="login">
 				<input type="text"  name="form-username" class="form-control" placeholder="Entrez votre identifiant" required autofocus>
+			</br>
 				<input type="password"  name="form-password" class="form-control" placeholder="Entrez votre mot de passe" required>
 				<button class="btn btn-lg btn-primary btn-block btn-signin">Se connecter</button>
 				<button class="btn btn-lg btn-primary btn-block btn-signin">S'inscrire</button>

@@ -88,6 +88,7 @@ public class UserDAO implements IUserDAO {
 		return user;
 	}
 
+
 	public Utilisateur update(String idUser)
 	{
 		Utilisateur user = null;
@@ -104,10 +105,12 @@ public class UserDAO implements IUserDAO {
 					user.setNom( rs.getString( "nom" ) );
 				}
 			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
 		}
 		return user;
 	}
-	}
+
 	@Override
 	public Collection<Utilisateur> findAll() {
 		return null;
