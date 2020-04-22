@@ -88,16 +88,16 @@ public class UserDAO implements IUserDAO {
 		return user;
 	}
 
-	public User update(String idUser)
+	public Utilisateur update(String idUser)
 	{
-		User user = null;
+		Utilisateur user = null;
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( UPDATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
 			ps.setString( 1, idUser );
 			try( ResultSet rs = ps.executeQuery() ) {
 				if ( rs.next()) {
 					rs.updateRow();
-					user = new User();
+					user = new Utilisateur();
 					user.setId(rs.getString( "id" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
