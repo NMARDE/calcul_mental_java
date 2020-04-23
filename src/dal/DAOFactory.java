@@ -38,6 +38,7 @@ public class DAOFactory {
 		
 		return null;
 	}
+
 	*/
 	/*
 	public static IRequestDAO getRequestDAO() {
