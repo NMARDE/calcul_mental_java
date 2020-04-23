@@ -5,7 +5,7 @@ import java.sql.Time;
 
 public class Partie implements Serializable {
 	
-	private String id;
+	private int id;
 	private int score;
 	private Time temps;
 	private Utilisateur unUtilisateur;
@@ -28,7 +28,7 @@ public class Partie implements Serializable {
 		}
 	}
 
-	public Partie(String id, Difficulte niveau, bo.Utilisateur unUtilisateur) {
+	public Partie(int id, Difficulte niveau, bo.Utilisateur unUtilisateur) {
 		this.id = id;
 		this.niveau = niveau;
 		this.unUtilisateur = unUtilisateur;
@@ -39,11 +39,11 @@ public class Partie implements Serializable {
 	}
 
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

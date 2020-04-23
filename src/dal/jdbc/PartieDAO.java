@@ -3,7 +3,6 @@ package dal.jdbc;
 import bo.Partie;
 import bo.Utilisateur;
 import dal.DAOFactory;
-import dal.IDAO;
 import dal.IPartieDAO;
 
 import java.sql.Connection;
@@ -15,8 +14,9 @@ import java.util.Collection;
 public class PartieDAO implements IPartieDAO {
 
 	private static final String CREATE_QUERY = "INSERT INTO `Partie`(`score`, `temps`, `difficulte`, `idUser`) VALUES (?,?,?,?)";
-	private static final String FIND_ID_QUERY = "SELECT * FROM user WHERE id = ?";
+	private static final String FIND_ID_QUERY = "SELECT idPartie, score, temps, difficulte, p.idUser, login, password, nomUser FROM `Partie` p, `User` u WHERE `idPartie`= ? AND p.`idUser` = u.`idUser`";
 	private static final String UPDATE_QUERY = "UPDATE user SET password = ? WHERE id = ?";
+	private static final String SCORE_QUERY = "SELECT COUNT(*) AS Score FROM Expression WHERE idPartie = ? AND resultatAttendu = reponseUser";
 	private static final String BETTER_BY_DIFFICULTY_QUERY = "SELECT idPartie, score, temps, difficulte, p.idUser, login, password, nomUser FROM `Partie` p, `User` u WHERE `difficulte`= ? AND p.`idUser` = u.`idUser`  ORDER BY `score` DESC, `temps` DESC LIMIT 10";
 
 
@@ -25,7 +25,7 @@ public class PartieDAO implements IPartieDAO {
 
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
-			ps.setInt( 1, partie.getScore() );
+			ps.setInt( 1, instancierScore(partie.getId()) );
 			ps.setTime( 2, partie.getTemps() );
 			ps.setString( 3, partie.getDifficulte().getNomDifficulte() );
 			ps.setInt( 3, partie.getUtilisateur().getId() );
@@ -42,7 +42,7 @@ public class PartieDAO implements IPartieDAO {
 	}
 
 	@Override
-	public void deleteById(String s) {
+	public void deleteById(Integer integer) {
 
 	}
 
@@ -51,9 +51,22 @@ public class PartieDAO implements IPartieDAO {
 
 	}
 
-	@Override
-	public Partie findById(String s) {
-		return null;
+
+	public Partie findById( Integer idPartie ) {
+		Partie partie = null;
+		try ( Connection connection = DAOFactory.getJDBCConnection();
+			  PreparedStatement ps = connection.prepareStatement( FIND_ID_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
+			ps.setInt( 1, idPartie );
+			try( ResultSet rs = ps.executeQuery() ) {
+				if ( rs.next()) {
+					rs.updateRow();
+					partie = instancierPartie(rs);
+				}
+			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return partie;
 	}
 
 	@Override
@@ -86,7 +99,7 @@ public class PartieDAO implements IPartieDAO {
 
 
 	@Override
-	public Partie[] meilleurScoreParDifficulte(String difficulte) throws SQLException {
+	public Partie[] meilleurScoreParDifficulte(String difficulte) {
 		Partie[] meilleurPartie = {null,null,null,null,null,null,null,null,null,null};
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( UPDATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
@@ -96,19 +109,7 @@ public class PartieDAO implements IPartieDAO {
 				while ( rs.next()) {
 					rs.updateRow();
 
-					Utilisateur user = new Utilisateur();
-					user.setId(rs.getInt("idUser"));
-					user.setLogin(rs.getString("login"));
-					user.setPassword(rs.getString("password"));
-					user.setNom(rs.getString("nomUser"));
-
-					Partie partie = new Partie();
-					partie.setId(rs.getString( "idPartie" ));
-					partie.setScore( rs.getInt( "login" ) );
-					partie.setTemps( rs.getTime( "password" ) );
-					partie.setDifficulte(Partie.rechercherDifficulte( rs.getString( "nomUser" )) );
-					partie.setUtilisateur(user);
-					meilleurPartie[i] = partie;
+					meilleurPartie[i] = instancierPartie(rs);
 					i++;
 				}
 			}
@@ -116,5 +117,43 @@ public class PartieDAO implements IPartieDAO {
 			throwables.printStackTrace();
 		}
 		return meilleurPartie;
+	}
+
+	@Override
+	public int instancierScore(Integer idPartie) throws SQLException {
+
+		int score = -1;
+		try ( Connection connection = DAOFactory.getJDBCConnection();
+			  PreparedStatement ps = connection.prepareStatement( SCORE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
+			ps.setInt( 1, idPartie );
+			try( ResultSet rs = ps.executeQuery() ) {
+				if ( rs.next()) {
+					rs.updateRow();
+					score = rs.getInt("Score");
+				}
+			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+
+		return score;
+	}
+
+	private Partie instancierPartie(ResultSet rs) throws SQLException {
+
+		Utilisateur user = new Utilisateur();
+		user.setId(rs.getInt("idUser"));
+		user.setLogin(rs.getString("login"));
+		user.setPassword(rs.getString("password"));
+		user.setNom(rs.getString("nomUser"));
+
+		Partie partie = new Partie();
+		partie.setId(rs.getInt( "idPartie" ));
+		partie.setScore( rs.getInt( "score" ) );
+		partie.setTemps( rs.getTime( "temps" ) );
+		partie.setDifficulte(Partie.rechercherDifficulte( rs.getString( "difficulte" )) );
+		partie.setUtilisateur(user);
+
+		return partie;
 	}
 }

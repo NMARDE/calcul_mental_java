@@ -57,7 +57,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 	}
 
 	@Override
-	public void deleteById(String s) {
+	public void deleteById(Integer s) {
 
 	}
 
@@ -67,11 +67,11 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur findById( String idUser ) {
+	public Utilisateur findById(Integer idUser ) {
 		Utilisateur user = null;
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( FIND_ID_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
-			ps.setString( 1, idUser );
+			ps.setInt( 1, idUser );
 			try( ResultSet rs = ps.executeQuery() ) {
 				if ( rs.next()) {
 					rs.updateRow();
@@ -89,12 +89,12 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 	}
 
 
-	public Utilisateur update(String idUser)
+	public Utilisateur update(Integer idUser)
 	{
 		Utilisateur user = null;
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( UPDATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
-			ps.setString( 1, idUser );
+			ps.setInt( 1, idUser );
 			try( ResultSet rs = ps.executeQuery() ) {
 				if ( rs.next()) {
 					rs.updateRow();

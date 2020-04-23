@@ -6,28 +6,27 @@ import java.util.Stack;
 
 import exception.OperateurException;
 import exception.ReponseUserException;
-import util.StringUtil;
 
 public class Expression implements Serializable {
 	
-	private String id;
+	private int id;
 	private ArrayList<String> listOperation = new ArrayList<String>();
 	private double resultatAttendu;
 	private double reponseUser;
 	private Partie unePartie;
 
 
-	public Expression(String id, Partie unePartie) {
+	public Expression(int id, Partie unePartie) {
 		this.id = id;
 		this.unePartie = unePartie;
 
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -171,6 +170,22 @@ public class Expression implements Serializable {
 	 */
 	private String genererNombre() {
 		 return String.valueOf(Math.random()*20);
+	}
+
+	/**
+	 * Permet d'afficher l'expression en espaçant chaques éléments
+	 * @return
+	 */
+	public String afficherExpression() {
+
+		StringBuilder retour = new StringBuilder();
+		for (String element: listOperation) {
+			retour.append(element);
+			retour.append(" ");
+		}
+
+		return retour.toString();
+
 	}
 
 

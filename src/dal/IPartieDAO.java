@@ -4,9 +4,9 @@ import bo.Partie;
 
 import java.sql.SQLException;
 
-public interface IPartieDAO extends IDAO<String, Partie> {
+public interface IPartieDAO extends IDAO<Integer, Partie> {
 
-	//Utilisateur authenticate(String login, String password ) throws SQLException;
+    Partie[] meilleurScoreParDifficulte(String difficulte) throws SQLException;
 
-    Partie[] meilleurScoreParDifficulte(String Difficulte) throws SQLException;
+    int instancierScore(Integer idPartie) throws SQLException;
 }
