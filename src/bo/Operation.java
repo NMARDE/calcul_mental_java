@@ -126,6 +126,8 @@ public class Operation implements Serializable {
 		return resultat;
 
 	}
+
+
 }
 
 
