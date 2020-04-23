@@ -17,7 +17,7 @@
     </context-param>
     <context-param>
         <param-name>JDBC_DB_URL</param-name>
-        <param-value>jdbc:mysql:mysql-madera-ril.alwaysdata.net/madera-ril_java?serverTimezone=UTC</param-value>
+        <param-value>jdbc:mysql://mysql-madera-ril.alwaysdata.net/madera-ril_java?serverTimezone=UTC</param-value>
     </context-param>
     <context-param>
         <param-name>JDBC_DB_LOGIN</param-name>
@@ -40,6 +40,6 @@
     </jsp-config>
 
     <welcome-file-list>
-        <welcome-file>home</welcome-file>
+        <welcome-file>login</welcome-file>
     </welcome-file-list>
 </web-app>

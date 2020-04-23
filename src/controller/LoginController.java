@@ -18,7 +18,7 @@ public class LoginController extends HttpServlet {
 	
 	public static final String LOGIN_URL_PATTERN = "/login";
 	private static final String LOGIN_JSP = "/WEB-INF/views/login.jsp";
-	private static final String HOME_URL_PATTERN = "/contacts";
+	private static final String HOME_URL_PATTERN = "/accueil";
 	private static final Logger LOGGER = Logger.getLogger( LoginController.class.getName() );
 	
 	private int doCount;

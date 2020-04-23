@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class UserDAO implements IUserDAO {
 	
-	private static final String AUTHENT_QUERY = "SELECT * FROM user WHERE login = ? AND password = ?";
+	private static final String AUTHENT_QUERY = "SELECT * FROM User WHERE login = ? AND password = ?";
 	private static final String CREATE_QUERY = "INSERT INTO `User`(`login`, `password`, `nomUser`) VALUES (?,?,?)";
 	private static final String FIND_ID_QUERY = "SELECT * FROM user WHERE id = ?";
 	private static final String UPDATE_QUERY = "UPDATE user SET password = ? WHERE id = ?";

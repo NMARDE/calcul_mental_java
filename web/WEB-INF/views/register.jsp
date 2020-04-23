@@ -31,7 +31,11 @@
 </head>
 <body>
 
-
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-container">
 </body>
 </html>
