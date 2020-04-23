@@ -25,10 +25,10 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "id" ));
+					user.setId(rs.getInt( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
-					user.setNom( rs.getString( "nom" ) );
+					user.setNom( rs.getString( "nomUser" ) );
 				}
 			}
 		}
@@ -57,7 +57,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 	}
 
 	@Override
-	public void deleteById(String s) {
+	public void deleteById(Integer s) {
 
 	}
 
@@ -67,19 +67,19 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur findById( String idUser ) {
+	public Utilisateur findById(Integer idUser ) {
 		Utilisateur user = null;
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( FIND_ID_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
-			ps.setString( 1, idUser );
+			ps.setInt( 1, idUser );
 			try( ResultSet rs = ps.executeQuery() ) {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "id" ));
+					user.setId(rs.getInt( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
-					user.setNom( rs.getString( "nom" ) );
+					user.setNom( rs.getString( "nomUser" ) );
 				}
 			}
 		} catch (SQLException throwables) {
@@ -89,17 +89,17 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 	}
 
 
-	public Utilisateur update(String idUser)
+	public Utilisateur update(Integer idUser)
 	{
 		Utilisateur user = null;
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( UPDATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
-			ps.setString( 1, idUser );
+			ps.setInt( 1, idUser );
 			try( ResultSet rs = ps.executeQuery() ) {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "idUser" ));
+					user.setId(rs.getInt( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
 					user.setNom( rs.getString( "nomUser" ) );
