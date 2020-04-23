@@ -14,6 +14,7 @@ import java.util.Collection;
 public class PartieDAO implements IPartieDAO {
 
 	private static final String CREATE_QUERY = "INSERT INTO `Partie`(`score`, `temps`, `difficulte`, `idUser`) VALUES (?,?,?,?)";
+	private static final String CREATE_IDUSER_DIF_QUERY = "INSERT INTO `Partie`(`difficulte`, `idUser`) VALUES (?,?)";
 	private static final String FIND_ID_QUERY = "SELECT idPartie, score, temps, difficulte, p.idUser, login, password, nomUser FROM `Partie` p, `User` u WHERE `idPartie`= ? AND p.`idUser` = u.`idUser`";
 	private static final String UPDATE_QUERY = "UPDATE user SET password = ? WHERE id = ?";
 	private static final String SCORE_QUERY = "SELECT COUNT(*) AS Score FROM Expression WHERE idPartie = ? AND resultatAttendu = reponseUser";
@@ -33,6 +34,19 @@ public class PartieDAO implements IPartieDAO {
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}
+	}
+
+	public void create( int idUser, String difficulte){
+		try ( Connection connection = DAOFactory.getJDBCConnection();
+			  PreparedStatement ps = connection.prepareStatement( CREATE_IDUSER_DIF_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
+			ps.setInt( 1, idUser );
+			ps.setString( 2, difficulte );
+			try( ResultSet rs = ps.executeQuery() ) {
+			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+
 	}
 
 	@Override
