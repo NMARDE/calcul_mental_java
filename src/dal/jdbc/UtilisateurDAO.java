@@ -11,8 +11,8 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 	
 	private static final String AUTHENT_QUERY = "SELECT * FROM User WHERE login = ? AND password = ?";
 	private static final String CREATE_QUERY = "INSERT INTO `User`(`login`, `password`, `nomUser`) VALUES (?,?,?)";
-	private static final String FIND_ID_QUERY = "SELECT * FROM user WHERE id = ?";
-	private static final String UPDATE_QUERY = "UPDATE user SET password = ? WHERE id = ?";
+	private static final String FIND_ID_QUERY = "SELECT * FROM user WHERE idUser = ?";
+	private static final String UPDATE_QUERY = "UPDATE user SET password = ? WHERE idUser = ?";
 	
 	@Override
 	public Utilisateur authenticate(String login, String password ) throws SQLException {
@@ -25,10 +25,10 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "id" ));
+					user.setId(rs.getString( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
-					user.setNom( rs.getString( "nom" ) );
+					user.setNom( rs.getString( "nomUser" ) );
 				}
 			}
 		}
@@ -76,10 +76,10 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "id" ));
+					user.setId(rs.getString( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
-					user.setNom( rs.getString( "nom" ) );
+					user.setNom( rs.getString( "nomUser" ) );
 				}
 			}
 		} catch (SQLException throwables) {

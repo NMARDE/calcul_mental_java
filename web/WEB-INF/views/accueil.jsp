@@ -39,7 +39,25 @@
     </div>
 </div>
 
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class ="card card-container">
+                        <h3>Nouvelle partie</h3>
+                    </br>
+                        <p>Choisir sa difficulté</p>
+                        <select class="form-control" id="select-difficulte" name= ></select>
+                        <button class="btn btn-lg btn-primary btn-block btn-signin">Jouer</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
