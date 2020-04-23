@@ -32,10 +32,7 @@
 <body>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card card-container">
+    <div class="card card-container">
+        <form method="POST"
 </body>
 </html>

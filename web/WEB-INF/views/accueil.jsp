@@ -31,6 +31,7 @@
 </head>
 <body>
 
+<jsp:useBean id="PartieBean" class="model.PartieBean" scope="request"></jsp:useBean>
 <div class="hero-wrap js-fullheight" style="background-image: url('img/fond.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -45,14 +46,43 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class ="card card-container">
+                        <form method="POST">
                         <h3>Nouvelle partie</h3>
                     </br>
                         <p>Choisir sa difficulté</p>
-                        <select class="form-control" id="select-difficulte" name= ></select>
+                        <select class="form-control" name="select-difficulte" >
+                        <option value="facile">Facile</option>
+                        <option value ="moyen">Moyen</option>
+                        <option value="difficile">Difficile</option>
+                        </select>
+                    </br>
                         <button class="btn btn-lg btn-primary btn-block btn-signin">Jouer</button>
                     </div>
+                    </form>
                 </div>
                 <div class="col-md-6">
+                    <div class ="card card-container">
+                        <h3>Les 10 meilleurs joueurs</h3>
+                    </br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Pseudo</th>
+                                <th>Score</th>
+                                <th>Temps</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="partie" items="${PartieBean.meilleurpartie}">
+                                <tr>
+                                    <td>${user.nomUser}</td>
+                                    <td>${partie.score}</td>
+                                    <td>${partie.email}</td>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>

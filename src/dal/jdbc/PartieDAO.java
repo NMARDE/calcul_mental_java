@@ -19,6 +19,7 @@ public class PartieDAO implements IPartieDAO {
 	private static final String UPDATE_QUERY = "UPDATE user SET password = ? WHERE id = ?";
 	private static final String BETTER_BY_DIFFICULTY_QUERY = "SELECT idPartie, score, temps, difficulte, p.idUser, login, password, nomUser FROM `Partie` p, `User` u WHERE `difficulte`= ? AND p.`idUser` = u.`idUser`  ORDER BY `score` DESC, `temps` DESC LIMIT 10";
 
+
 	@Override
 	public void create( Partie partie ) {
 

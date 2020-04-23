@@ -25,7 +25,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "idUser" ));
+					user.setId(rs.getInt( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
 					user.setNom( rs.getString( "nomUser" ) );
@@ -76,7 +76,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "idUser" ));
+					user.setId(rs.getInt( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
 					user.setNom( rs.getString( "nomUser" ) );
@@ -99,7 +99,7 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 				if ( rs.next()) {
 					rs.updateRow();
 					user = new Utilisateur();
-					user.setId(rs.getString( "idUser" ));
+					user.setId(rs.getInt( "idUser" ));
 					user.setLogin( rs.getString( "login" ) );
 					user.setPassword( rs.getString( "password" ) );
 					user.setNom( rs.getString( "nomUser" ) );
