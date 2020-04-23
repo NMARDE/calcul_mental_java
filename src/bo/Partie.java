@@ -12,16 +12,30 @@ public class Partie implements Serializable {
 	private Difficulte niveau;
 
 	public enum Difficulte {
-		Facile,
-		Normal,
-		Difficile,
+		Facile ("Facile"),
+		Normal ("Normal"),
+		Difficile ("Difficile"),
 		;
+
+		private String difficulte;
+
+		Difficulte(String difficulte) {
+			this.difficulte = difficulte;
+		}
+
+		public String getNomDifficulte() {
+			return difficulte;
+		}
 	}
 
 	public Partie(String id, Difficulte niveau, bo.Utilisateur unUtilisateur) {
 		this.id = id;
 		this.niveau = niveau;
 		this.unUtilisateur = unUtilisateur;
+	}
+
+	public Partie() {
+
 	}
 
 
@@ -63,6 +77,20 @@ public class Partie implements Serializable {
 
 	public void setUtilisateur(bo.Utilisateur unUser) {
 		this.unUtilisateur = unUser;
+	}
+
+	public static Difficulte rechercherDifficulte (String element) {
+		Difficulte[] listDifficulte = Difficulte.values();
+		Difficulte difficulte = null;
+
+		for (Difficulte uneDifficulte : listDifficulte) {
+			if (uneDifficulte.equals(element)) {
+				difficulte = uneDifficulte;
+				break;
+			}
+		}
+
+		return difficulte;
 	}
 
 }

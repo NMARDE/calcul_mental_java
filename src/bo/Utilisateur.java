@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Utilisateur implements Serializable {
 	
-	private String id;
+	private int id;
 	private String login;
 	private String password;
 	private String nom;
@@ -19,18 +19,18 @@ public class Utilisateur implements Serializable {
 		this.nom = nom;
 	}
 	
-	public Utilisateur( String id, String login, String password, String nom ) {
+	public Utilisateur( int id, String login, String password, String nom ) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
 		this.nom = nom;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setId( String id ) {
+	public void setId( int id ) {
 		this.id = id;
 	}
 	
@@ -68,4 +68,6 @@ public class Utilisateur implements Serializable {
 		sb.append( '}' );
 		return sb.toString();
 	}
+
+
 }
