@@ -2,12 +2,12 @@ package dal.jdbc;
 
 import bo.Utilisateur;
 import dal.DAOFactory;
-import dal.IUserDAO;
+import dal.IUtilisateurDAO;
 
 import java.sql.*;
 import java.util.Collection;
 
-public class UserDAO implements IUserDAO {
+public class UtilisateurDAO implements IUtilisateurDAO {
 	
 	private static final String AUTHENT_QUERY = "SELECT * FROM user WHERE login = ? AND password = ?";
 	private static final String CREATE_QUERY = "INSERT INTO `User`(`login`, `password`, `nomUser`) VALUES (?,?,?)";

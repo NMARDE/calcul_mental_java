@@ -1,6 +1,6 @@
 package dal;
 
-import dal.jdbc.UserDAO;
+import dal.jdbc.UtilisateurDAO;
 import util.StringUtil;
 
 import javax.servlet.ServletContext;
@@ -19,12 +19,12 @@ public class DAOFactory {
 	
 	private DAOFactory() {}
 	
-	public static IUserDAO getUserDAO() {
+	public static IUtilisateurDAO getUserDAO() {
 		
-		IUserDAO dao = null;
+		IUtilisateurDAO dao = null;
 		switch ( mode ) {
 			case "JDBC" :
-				dao = new UserDAO();
+				dao = new UtilisateurDAO();
 				break;
 			case "JPA" :
 				// dao = new JPAUserDAO();
