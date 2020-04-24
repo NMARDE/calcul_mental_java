@@ -61,14 +61,9 @@ public class Expression implements Serializable {
 		this.unePartie = unePartie;
 	}
 
-	public boolean verifierResultat(String reponseUser) throws ReponseUserException {
-		try {
-			setReponseUser(Double.parseDouble(reponseUser));
-		} catch (NumberFormatException nfe) {
-			throw new ReponseUserException("Ceci n'est pas un nombre");
-		}
-		return getResultatAttendu() == getReponseUser();
+	public boolean verifierResultat() {
 
+		return getResultatAttendu() == getReponseUser();
 	}
 
 	/**
