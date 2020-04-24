@@ -2,16 +2,18 @@ package bo;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class Partie implements Serializable {
 	
 	private int id;
 	private int score;
 	private Time temps;
+	private ArrayList<Expression> listExpressions;
 
 
 
-	private Utilisateur unUtilisateur;
+	private Utilisateur user;
 	private Difficulte niveau;
 
 	public enum Difficulte {
@@ -30,23 +32,24 @@ public class Partie implements Serializable {
 		}
 	}
 
-	public Partie(int id, int score, Time temps, Utilisateur unUtilisateur, Difficulte niveau) {
+	public Partie(int id, int score, Time temps, Utilisateur user, Difficulte niveau) {
 		this.id = id;
 		this.score = score;
 		this.temps = temps;
-		this.unUtilisateur = unUtilisateur;
+		this.user = user;
 		this.niveau = niveau;
 	}
 
-	public Partie(int id, Difficulte niveau, Utilisateur unUtilisateur) {
+	public Partie(int id, Difficulte niveau, Utilisateur user) {
 		this.id = id;
 		this.niveau = niveau;
-		this.unUtilisateur = unUtilisateur;
+		this.user = user;
 	}
 
-	public Partie(Difficulte niveau, Utilisateur Utilisateur) {
+	public Partie(Difficulte niveau, Utilisateur Utilisateur, ArrayList<Expression> listExpressions) {
 		this.niveau = niveau;
-		this.unUtilisateur = Utilisateur;
+		this.user = Utilisateur;
+		this.listExpressions = listExpressions;
 	}
 
 	public Partie() {
@@ -78,20 +81,28 @@ public class Partie implements Serializable {
 		this.temps = temps;
 	}
 
-	public Difficulte getDifficulte() {
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
+	}
+
+	public Difficulte getNiveau() {
 		return niveau;
 	}
 
-	public void setDifficulte(Difficulte niveau) {
+	public void setNiveau(Difficulte niveau) {
 		this.niveau = niveau;
 	}
 
-	public bo.Utilisateur getUtilisateur() {
-		return unUtilisateur;
+	public ArrayList<Expression> getListExpressions() {
+		return listExpressions;
 	}
 
-	public void setUtilisateur(bo.Utilisateur unUser) {
-		this.unUtilisateur = unUser;
+	public void setListExpressions(ArrayList<Expression> listExpressions) {
+		this.listExpressions = listExpressions;
 	}
 
 	public static Difficulte rechercherDifficulte (String element) {

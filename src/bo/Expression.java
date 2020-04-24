@@ -16,8 +16,7 @@ public class Expression implements Serializable {
 	private Partie unePartie;
 
 
-	public Expression(int id, Partie unePartie) {
-		this.id = id;
+	public Expression(Partie unePartie) {
 		this.unePartie = unePartie;
 
 	}
@@ -107,7 +106,7 @@ public class Expression implements Serializable {
 		Operation.Operateur operateur = null;
 
 		for (Operation.Operateur unOperateur : listOperateurs) {
-			if (unOperateur.equals(element)) {
+			if (unOperateur.getType().equals(element)) {
 				operateur = unOperateur;
 				break;
 			}
@@ -125,8 +124,9 @@ public class Expression implements Serializable {
 
 	public void genererExpression() throws OperateurException {
 
+
 		Partie unePartie = getPartie();
-		Partie.Difficulte difficulte = unePartie.getDifficulte();
+		Partie.Difficulte difficulte = unePartie.getNiveau();
 		ArrayList<String> listOperation = new ArrayList<>();
 
 		listOperation.add(genererNombre());
@@ -169,7 +169,7 @@ public class Expression implements Serializable {
 	 * @return
 	 */
 	private String genererNombre() {
-		 return String.valueOf(Math.random()*20);
+		 return String.valueOf(Math.round(Math.random()*20+1));
 	}
 
 	/**

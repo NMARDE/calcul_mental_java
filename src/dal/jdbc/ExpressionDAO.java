@@ -7,10 +7,7 @@ import dal.DAOFactory;
 import dal.IExpressionDAO;
 import dal.IPartieDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Collection;
 
 public class ExpressionDAO implements IExpressionDAO {
@@ -22,7 +19,7 @@ public class ExpressionDAO implements IExpressionDAO {
 	public void create( Expression expression ) {
 
 		try ( Connection connection = DAOFactory.getJDBCConnection();
-			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
+			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, Statement.RETURN_GENERATED_KEYS, ResultSet.CONCUR_UPDATABLE ) ) {
 			ps.setString( 1, expression.afficherExpression());
 			ps.setDouble( 2, expression.getResultatAttendu() );
 			ps.setDouble( 3, expression.getReponseUser() );

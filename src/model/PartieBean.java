@@ -2,12 +2,16 @@ package model;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import bo.Partie;
 import bo.Expression;
+import bo.Utilisateur;
 import dal.DAOFactory;
 import dal.jdbc.PartieDAO;
+import exception.OperateurException;
+import exception.ReponseUserException;
 import exception.UserNotFound;
 
 import javax.servlet.http.HttpServlet;
@@ -21,15 +25,16 @@ public class PartieBean implements Serializable {
     private String FORM_IDUSER ="idUser";
 
     private List<Partie> bestScores;
-    private List<Expression> lesExpressions;
+    private ArrayList<Expression> lesExpressions = new ArrayList<>();
+    private static final String RESPONSE_USER = "form-response";
 
      private Partie currentGame;
 
     public PartieBean() {}
 
 
-
     public void loadBestScores() throws UserNotFound, SQLException {
+
         bestScores = DAOFactory.getPartieDAO().meilleurScore();
         if (bestScores == null)
         {
@@ -39,17 +44,42 @@ public class PartieBean implements Serializable {
 
     public void createPartie( HttpServletRequest request ) {
 
-        String id = request.getParameter(FORM_IDUSER);
-        String difficulte = request.getParameter(FORM_DIFFICULTE);
+        HttpSession session = request.getSession(true);
+        Utilisateur user = (Utilisateur) session.getAttribute(LoginBean.CURRENT_USER_SESSION_KEY);
+        Partie.Difficulte difficulte = Partie.Difficulte.valueOf(request.getParameter(FORM_DIFFICULTE));
 
+        for (int i = 0; i < 10; i++)
+        {
+            Expression uneExpression = new Expression(currentGame);
+            try {
+                uneExpression.genererExpression();
 
-        DAOFactory.getPartieDAO().create(Integer.valueOf(id), difficulte);
-        lesExpressions = DAOFactory.getExpressionDAO().
+            } catch (OperateurException e) {
+                e.printStackTrace();
+            }
+            lesExpressions.add(uneExpression);
+        }
 
-
+        currentGame = new Partie(difficulte, user, lesExpressions);
+        session.setAttribute("currentGame", currentGame);
+        session.setAttribute("currentExIn", 0);
 
     }
 
+    public void stockerResponseExpression(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession(true);
+        session.getAttribute("currentGame");
+        String message = "";
+
+
+        int index = (int)session.getAttribute("currentExIn");
+        Expression uneExpression = currentGame.getListExpressions().get(index);
+
+        uneExpression.setReponseUser((Double.parseDouble(RESPONSE_USER)));
+        session.setAttribute("currentExIn", index + 1);
+
+    }
 
     public String getFORM_DIFFICULTE() {
         return FORM_DIFFICULTE;
@@ -74,6 +104,23 @@ public class PartieBean implements Serializable {
     public void setBestScores(List<Partie> bestScores) {
         this.bestScores = bestScores;
     }
+
+    public List<Expression> getLesExpressions() {
+        return lesExpressions;
+    }
+
+    public void setLesExpressions(ArrayList<Expression> lesExpressions) {
+        this.lesExpressions = lesExpressions;
+    }
+
+    public Partie getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setCurrentGame(Partie currentGame) {
+        this.currentGame = currentGame;
+    }
+
 
 
 }

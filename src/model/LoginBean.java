@@ -15,7 +15,7 @@ public class LoginBean implements Serializable {
 	
 	private static final String FORM_FIELD_LOGIN = "form-username";
 	private static final String FORM_FIELD_PWD = "form-password";
-	private static final String CURRENT_USER_SESSION_KEY = "currentUser";
+	public static final String CURRENT_USER_SESSION_KEY = "currentUser";
 	
 	private String login;
 	private String password;

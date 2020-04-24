@@ -17,6 +17,7 @@ public class AccueilController extends HttpServlet {
 
     private static final String ACCUEIL_JSP = "/WEB-INF/views/accueil.jsp";
     private static final String HOME_URL_PATTERN = "/accueil";
+    private static final String PARTIE_URL_PATTERN = "/partie";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,10 +40,11 @@ public class AccueilController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        PartieBean partieBean = new PartieBean( request );
+        PartieBean partieBean = new PartieBean();
 
+        partieBean.createPartie(request);
 
-
+        response.sendRedirect(request.getContextPath() + PARTIE_URL_PATTERN);
 
     }
 }

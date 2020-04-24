@@ -24,11 +24,11 @@ public class PartieDAO implements IPartieDAO {
 	public void create( Partie partie ) {
 
 		try ( Connection connection = DAOFactory.getJDBCConnection();
-			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
+			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, Statement.RETURN_GENERATED_KEYS, ResultSet.CONCUR_UPDATABLE ) ) {
 			ps.setInt( 1, instancierScore(partie.getId()) );
 			ps.setTime( 2, partie.getTemps() );
-			ps.setString( 3, partie.getDifficulte().toString() );
-			ps.setInt( 3, partie.getUtilisateur().getId() );
+			ps.setString( 3, partie.getNiveau().toString() );
+			ps.setInt( 3, partie.getUser().getId() );
 			try( ResultSet rs = ps.executeQuery() ) {
 			}
 		} catch (SQLException throwables) {
@@ -36,9 +36,9 @@ public class PartieDAO implements IPartieDAO {
 		}
 	}
 
-	public Partie create( int idUser, String difficulte){
+	public void create( int idUser, String difficulte){
 		try ( Connection connection = DAOFactory.getJDBCConnection();
-			  PreparedStatement ps = connection.prepareStatement( CREATE_IDUSER_DIF_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
+			  PreparedStatement ps = connection.prepareStatement( CREATE_IDUSER_DIF_QUERY, Statement.RETURN_GENERATED_KEYS, ResultSet.CONCUR_UPDATABLE ) ) {
 			ps.setInt( 1, idUser );
 			ps.setString( 2, difficulte );
 			try( ResultSet rs = ps.executeQuery() ) {
@@ -46,9 +46,6 @@ public class PartieDAO implements IPartieDAO {
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}
-
-		Partie partie = new Partie(Partie.rechercherDifficulte(difficulte), DAOFactory.getUserDAO().findById(idUser));
-		return partie;
 	}
 
 	@Override
@@ -168,10 +165,8 @@ public class PartieDAO implements IPartieDAO {
 		partie.setId(rs.getInt( "idPartie" ));
 		partie.setScore( rs.getInt( "score" ) );
 		partie.setTemps( rs.getTime( "temps" ) );
-//		partie.setDifficulte(Partie.rechercherDifficulte( rs.getString( "difficulte" )) );
-		partie.setDifficulte(Partie.Difficulte.valueOf("Difficile") );
-		partie.setDifficulte(Partie.Difficulte.values()[rs.getInt("difficulte")]);
-		partie.setUtilisateur(user);
+		partie.setNiveau(Partie.rechercherDifficulte( rs.getString( "difficulte" )) );
+		partie.setUser(user);
 
 		return partie;
 	}
