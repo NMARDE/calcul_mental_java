@@ -5,11 +5,10 @@ import bo.Utilisateur;
 import dal.DAOFactory;
 import dal.IPartieDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class PartieDAO implements IPartieDAO {
 
@@ -18,7 +17,7 @@ public class PartieDAO implements IPartieDAO {
 	private static final String FIND_ID_QUERY = "SELECT idPartie, score, temps, difficulte, p.idUser, login, password, nomUser FROM `Partie` p, `User` u WHERE `idPartie`= ? AND p.`idUser` = u.`idUser`";
 	private static final String UPDATE_QUERY = "UPDATE user SET password = ? WHERE id = ?";
 	private static final String SCORE_QUERY = "SELECT COUNT(*) AS Score FROM Expression WHERE idPartie = ? AND resultatAttendu = reponseUser";
-	private static final String BETTER_BY_DIFFICULTY_QUERY = "SELECT idPartie, score, temps, difficulte, p.idUser, login, password, nomUser FROM `Partie` p, `User` u WHERE `difficulte`= ? AND p.`idUser` = u.`idUser`  ORDER BY `score` DESC, `temps` DESC LIMIT 10";
+	private static final String BETTER_BY_DIFFICULTY_QUERY = "SELECT * FROM `Partie` p, `User` u WHERE p.`idUser` = u.`idUser` ORDER BY difficulte DESC, `score` DESC, `temps` ASC LIMIT 10";
 
 
 	@Override
@@ -28,7 +27,7 @@ public class PartieDAO implements IPartieDAO {
 			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
 			ps.setInt( 1, instancierScore(partie.getId()) );
 			ps.setTime( 2, partie.getTemps() );
-			ps.setString( 3, partie.getDifficulte().getNomDifficulte() );
+			ps.setString( 3, partie.getDifficulte().toString() );
 			ps.setInt( 3, partie.getUtilisateur().getId() );
 			try( ResultSet rs = ps.executeQuery() ) {
 			}
@@ -112,19 +111,21 @@ public class PartieDAO implements IPartieDAO {
 	}
 
 
-	@Override
-	public Partie[] meilleurScoreParDifficulte(String difficulte) {
-		Partie[] meilleurPartie = {null,null,null,null,null,null,null,null,null,null};
+	public List<Partie> meilleurScore() throws SQLException {
+		List<Partie> meilleurPartie = new ArrayList<>();
 		try ( Connection connection = DAOFactory.getJDBCConnection();
-			  PreparedStatement ps = connection.prepareStatement( UPDATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
-			ps.setString( 1, difficulte );
+			  PreparedStatement ps = connection.prepareStatement( BETTER_BY_DIFFICULTY_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
 			try( ResultSet rs = ps.executeQuery() ) {
-				int i = 0;
-				while ( rs.next()) {
-					rs.updateRow();
 
-					meilleurPartie[i] = instancierPartie(rs);
-					i++;
+				while ( rs.next()) {
+
+					int idPartie = rs.getInt("idPartie");
+					Utilisateur unUtilisateur  = new Utilisateur(rs.getInt("idUser"), rs.getString("login"), rs.getString("password"), rs.getString("nomUser") );
+					int score = rs.getInt("score");
+					Time temps = rs.getTime("temps");
+					Partie.Difficulte uneDiffculte = Partie.Difficulte.valueOf(rs.getString("difficulte"));
+					Partie unePartie = new Partie(idPartie, score, temps,  unUtilisateur, uneDiffculte);
+					meilleurPartie.add(unePartie);
 				}
 			}
 		} catch (SQLException throwables) {
@@ -165,7 +166,9 @@ public class PartieDAO implements IPartieDAO {
 		partie.setId(rs.getInt( "idPartie" ));
 		partie.setScore( rs.getInt( "score" ) );
 		partie.setTemps( rs.getTime( "temps" ) );
-		partie.setDifficulte(Partie.rechercherDifficulte( rs.getString( "difficulte" )) );
+//		partie.setDifficulte(Partie.rechercherDifficulte( rs.getString( "difficulte" )) );
+		partie.setDifficulte(Partie.Difficulte.valueOf("Difficile") );
+		partie.setDifficulte(Partie.Difficulte.values()[rs.getInt("difficulte")]);
 		partie.setUtilisateur(user);
 
 		return partie;

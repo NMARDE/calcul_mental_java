@@ -40,7 +40,12 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 		LOGGER.log( Level.INFO, "Dans le doGet {0}", ++doCount );
-		LoginBean model = new LoginBean();
+
+		LoginBean model = (LoginBean) request.getAttribute("loginBean");
+		if ( model == null ) {
+			model = new LoginBean();
+			request.setAttribute( "loginBean", model );
+		}
 		if ( model.isAuthenticated( request ) ) {
 			response.sendRedirect( request.getContextPath() + HOME_URL_PATTERN );
 		} else {

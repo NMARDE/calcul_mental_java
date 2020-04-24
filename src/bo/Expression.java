@@ -132,11 +132,11 @@ public class Expression implements Serializable {
 		listOperation.add(genererNombre());
 
 		switch(difficulte) {
-			case Difficile:
+			case LEVEL3:
 				listOperation.addAll(genererPartieExpression());
-			case Normal:
+			case LEVEL2:
 				listOperation.addAll(genererPartieExpression());
-			case Facile:
+			case LEVEL1:
 				listOperation.addAll(genererPartieExpression());
 				break;
 			default:

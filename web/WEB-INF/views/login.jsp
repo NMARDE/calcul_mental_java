@@ -50,7 +50,7 @@
 			</c:if>
 		</div>
 			<form method="POST" class="form-signin" action="login">
-				<input type="text"  name="form-username" class="form-control" placeholder="Entrez votre identifiant" value ="" required autofocus>
+				<input type="text"  name="form-username" class="form-control" placeholder="Entrez votre identifiant" value ="${loginBean.login}" required autofocus>
 			</br>
 				<input type="password"  name="form-password" class="form-control" placeholder="Entrez votre mot de passe" value="" required>
 				<button class="btn btn-lg btn-primary btn-block btn-signin">Se connecter</button>

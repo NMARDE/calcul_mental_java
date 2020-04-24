@@ -1,15 +1,69 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.List;
+
+import bo.Partie;
+import dal.DAOFactory;
+import exception.UserNotFound;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class PartieBean implements Serializable {
 
-    private String difficulte;
-    private String idUser;
+
+    private String FORM_DIFFICULTE = "select-difficulte";
+    private String FORM_IDUSER ="idUser";
+
+    private List<Partie> bestScores;
+
+     private Partie currentGame;
+
+    public PartieBean() {}
 
 
 
+    public void loadBestScores() throws UserNotFound, SQLException {
+        bestScores = DAOFactory.getPartieDAO().meilleurScore();
+        if (bestScores == null)
+        {
+            throw new UserNotFound( "Pas d'utilisateur");
+        }
+    }
 
+    public void createPartie( HttpServletRequest request ) {
+
+        String id = request.getParameter(FORM_IDUSER);
+        Partie.Difficulte difficulte =  request.getParameter(FORM_DIFFICULTE);
+    }
+
+
+    public String getFORM_DIFFICULTE() {
+        return FORM_DIFFICULTE;
+    }
+
+    public void setFORM_DIFFICULTE(String FORM_DIFFICULTE) {
+        this.FORM_DIFFICULTE = FORM_DIFFICULTE;
+    }
+
+    public String getFORM_IDUSER() {
+        return FORM_IDUSER;
+    }
+
+    public void setFORM_IDUSER(String FORM_IDUSER) {
+        this.FORM_IDUSER = FORM_IDUSER;
+    }
+
+    public List<Partie> getBestScores() {
+        return bestScores;
+    }
+
+    public void setBestScores(List<Partie> bestScores) {
+        this.bestScores = bestScores;
+    }
 
 
 }

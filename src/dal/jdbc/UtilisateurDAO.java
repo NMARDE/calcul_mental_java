@@ -39,11 +39,12 @@ public class UtilisateurDAO implements IUtilisateurDAO {
 	public void create( Utilisateur user ) {
 
 		try ( Connection connection = DAOFactory.getJDBCConnection();
-			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
+			  PreparedStatement ps = connection.prepareStatement( CREATE_QUERY, Statement.RETURN_GENERATED_KEYS ) ) {
 			ps.setString( 1, user.getLogin() );
 			ps.setString( 2, user.getPassword() );
 			ps.setString( 3, user.getNom() );
 			try( ResultSet rs = ps.executeQuery() ) {
+
 			}
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();

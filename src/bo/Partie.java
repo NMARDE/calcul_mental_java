@@ -8,14 +8,16 @@ public class Partie implements Serializable {
 	private int id;
 	private int score;
 	private Time temps;
+
+
+
 	private Utilisateur unUtilisateur;
 	private Difficulte niveau;
 
 	public enum Difficulte {
-		Facile ("Facile"),
-		Normal ("Normal"),
-		Difficile ("Difficile"),
-		;
+		LEVEL1("Facile"),
+		LEVEL2("Normal"),
+		LEVEL3("Difficile");
 
 		private String difficulte;
 
@@ -26,6 +28,14 @@ public class Partie implements Serializable {
 		public String getNomDifficulte() {
 			return difficulte;
 		}
+	}
+
+	public Partie(int id, int score, Time temps, Utilisateur unUtilisateur, Difficulte niveau) {
+		this.id = id;
+		this.score = score;
+		this.temps = temps;
+		this.unUtilisateur = unUtilisateur;
+		this.niveau = niveau;
 	}
 
 	public Partie(int id, Difficulte niveau, bo.Utilisateur unUtilisateur) {
