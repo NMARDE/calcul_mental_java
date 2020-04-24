@@ -11,5 +11,5 @@ public interface IPartieDAO extends IDAO<Integer, Partie> {
 
     int instancierScore(Integer idPartie) throws SQLException;
 
-    public void create( int idUser, String difficulte);
+    public Partie create( int idUser, String difficulte);
 }

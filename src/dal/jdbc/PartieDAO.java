@@ -36,7 +36,7 @@ public class PartieDAO implements IPartieDAO {
 		}
 	}
 
-	public void create( int idUser, String difficulte){
+	public Partie create( int idUser, String difficulte){
 		try ( Connection connection = DAOFactory.getJDBCConnection();
 			  PreparedStatement ps = connection.prepareStatement( CREATE_IDUSER_DIF_QUERY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE ) ) {
 			ps.setInt( 1, idUser );
@@ -47,6 +47,8 @@ public class PartieDAO implements IPartieDAO {
 			throwables.printStackTrace();
 		}
 
+		Partie partie = new Partie(Partie.rechercherDifficulte(difficulte), DAOFactory.getUserDAO().findById(idUser));
+		return partie;
 	}
 
 	@Override

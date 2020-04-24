@@ -15,9 +15,9 @@ public class Partie implements Serializable {
 	private Difficulte niveau;
 
 	public enum Difficulte {
-		LEVEL1("Facile"),
-		LEVEL2("Normal"),
-		LEVEL3("Difficile");
+		LEVEL1("Level1"),
+		LEVEL2("Level2"),
+		LEVEL3("Level3");
 
 		private String difficulte;
 
@@ -38,10 +38,15 @@ public class Partie implements Serializable {
 		this.niveau = niveau;
 	}
 
-	public Partie(int id, Difficulte niveau, bo.Utilisateur unUtilisateur) {
+	public Partie(int id, Difficulte niveau, Utilisateur unUtilisateur) {
 		this.id = id;
 		this.niveau = niveau;
 		this.unUtilisateur = unUtilisateur;
+	}
+
+	public Partie(Difficulte niveau, Utilisateur Utilisateur) {
+		this.niveau = niveau;
+		this.unUtilisateur = Utilisateur;
 	}
 
 	public Partie() {
