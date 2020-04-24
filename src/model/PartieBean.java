@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import bo.Partie;
+import bo.Expression;
 import dal.DAOFactory;
+import dal.jdbc.PartieDAO;
 import exception.UserNotFound;
 
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,7 @@ public class PartieBean implements Serializable {
     private String FORM_IDUSER ="idUser";
 
     private List<Partie> bestScores;
+    private List<Expression> lesExpressions;
 
      private Partie currentGame;
 
@@ -37,7 +40,14 @@ public class PartieBean implements Serializable {
     public void createPartie( HttpServletRequest request ) {
 
         String id = request.getParameter(FORM_IDUSER);
-        Partie.Difficulte difficulte =  request.getParameter(FORM_DIFFICULTE);
+        String difficulte = request.getParameter(FORM_DIFFICULTE);
+
+
+        DAOFactory.getPartieDAO().create(Integer.valueOf(id), difficulte);
+        lesExpressions = DAOFactory.getExpressionDAO().
+
+
+
     }
 
 

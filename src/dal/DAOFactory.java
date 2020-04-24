@@ -1,5 +1,6 @@
 package dal;
 
+import dal.jdbc.ExpressionDAO;
 import dal.jdbc.PartieDAO;
 import dal.jdbc.UtilisateurDAO;
 import util.StringUtil;
@@ -40,6 +41,20 @@ public class DAOFactory {
 		switch ( mode ) {
 			case "JDBC" :
 				dao = new PartieDAO();
+				break;
+			case "JPA" :
+				// dao = new JPAUserDAO();
+				break;
+		}
+		return dao;
+	}
+
+	public static IExpressionDAO getExpressionDAO() {
+
+		IExpressionDAO dao = null;
+		switch ( mode ) {
+			case "JDBC" :
+				dao = new ExpressionDAO();
 				break;
 			case "JPA" :
 				// dao = new JPAUserDAO();

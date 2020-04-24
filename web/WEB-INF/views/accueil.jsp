@@ -51,12 +51,12 @@
                     </br>
                         <p>Choisir sa difficulté</p>
                         <select class="form-control" name="select-difficulte" >
-                        <option value="facile">Facile</option>
-                        <option value ="moyen">Moyen</option>
-                        <option value="difficile">Difficile</option>
+                        <option value="LEVEL1">Facile</option>
+                        <option value="LEVEL2">Moyen</option>
+                        <option value="LEVEL3">Difficile</option>
                         </select>
                     </br>
-                        <button class="btn btn-lg btn-primary btn-block btn-signin">Jouer</button>
+                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Jouer</button>
                     </div>
                     </form>
                 </div>
