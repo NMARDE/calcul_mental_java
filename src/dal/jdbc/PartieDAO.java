@@ -1,8 +1,10 @@
 package dal.jdbc;
 
+import bo.Expression;
 import bo.Partie;
 import bo.Utilisateur;
 import dal.DAOFactory;
+import dal.IExpressionDAO;
 import dal.IPartieDAO;
 
 import java.sql.*;
@@ -31,6 +33,13 @@ public class PartieDAO implements IPartieDAO {
 			ps.setInt( 3, partie.getUser().getId() );
 			try( ResultSet rs = ps.executeQuery() ) {
 			}
+			IExpressionDAO dao = DAOFactory.getExpressionDAO();
+			for (Expression e : partie.getListExpressions() ) {
+				e.setPartie(partie);
+				dao.create(e);
+			}
+
+
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}

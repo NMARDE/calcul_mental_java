@@ -28,10 +28,6 @@
         <param-value>P@ssW0rd44**</param-value>
     </context-param>
 
-    <session-config>
-        <session-timeout>1</session-timeout>
-    </session-config>
-
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

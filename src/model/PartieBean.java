@@ -9,12 +9,10 @@ import bo.Partie;
 import bo.Expression;
 import bo.Utilisateur;
 import dal.DAOFactory;
-import dal.jdbc.PartieDAO;
+import exception.EndGameException;
 import exception.OperateurException;
-import exception.ReponseUserException;
 import exception.UserNotFound;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -29,6 +27,7 @@ public class PartieBean implements Serializable {
     private static final String RESPONSE_USER = "form-response";
 
      private Partie currentGame;
+     private EndGameException exception;
 
     public PartieBean() {}
 
@@ -48,6 +47,8 @@ public class PartieBean implements Serializable {
         Utilisateur user = (Utilisateur) session.getAttribute(LoginBean.CURRENT_USER_SESSION_KEY);
         Partie.Difficulte difficulte = Partie.Difficulte.valueOf(request.getParameter(FORM_DIFFICULTE));
 
+        currentGame = new Partie(difficulte, user, lesExpressions);
+
         for (int i = 0; i < 10; i++)
         {
             Expression uneExpression = new Expression(currentGame);
@@ -60,25 +61,29 @@ public class PartieBean implements Serializable {
             lesExpressions.add(uneExpression);
         }
 
-        currentGame = new Partie(difficulte, user, lesExpressions);
         session.setAttribute("currentGame", currentGame);
         session.setAttribute("currentExIn", 0);
 
     }
 
-    public void stockerResponseExpression(HttpServletRequest request)
-    {
+    public boolean stockerResponseExpression(HttpServletRequest request) throws EndGameException {
         HttpSession session = request.getSession(true);
         session.getAttribute("currentGame");
         String message = "";
 
 
-        int index = (int)session.getAttribute("currentExIn");
+        int index = (int) session.getAttribute("currentExIn");
+
         Expression uneExpression = currentGame.getListExpressions().get(index);
-
         uneExpression.setReponseUser((Double.parseDouble(RESPONSE_USER)));
-        session.setAttribute("currentExIn", index + 1);
-
+        if (index >= 9) {
+            DAOFactory.getPartieDAO().create(currentGame);
+            exception = new EndGameException("Fin de partie.");
+            throw exception;
+        } else {
+            session.setAttribute("currentExIn", index + 1);
+            return true;
+        }
     }
 
     public String getFORM_DIFFICULTE() {

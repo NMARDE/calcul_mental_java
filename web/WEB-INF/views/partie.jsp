@@ -33,7 +33,6 @@
 <body>
 
 <jsp:useBean id="currentGame" class="bo.Partie" scope="session"></jsp:useBean>
-<jsp:useBean id="currentExIn" class="java.lang.Integer" scope="session"></jsp:useBean>
 <div class="hero-wrap js-fullheight" style="background-image: url('img/fond.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -46,10 +45,10 @@
     <div class="card card-container">
         <h3>Calcul mental</h3>
     </br>
-       <h4 style="text-align: center">${currentGame.listExpressions.get(currentExIn)}</h4>
+       <h4 style="text-align: center">${currentGame.listExpressions.get(sessionScope.currentExIn).afficherExpression()}</h4>
     </br>
         <form method="POST">
-            <input type="text" class="form-control-sm" name="form-response" required pattern="0-9">
+            <input type="text" class="form-control-sm" name="form-response" required pattern="[0-9]">
             <button class="btn btn-block btn-primary" type="submit">Valider</button>
         </form>
     </div>

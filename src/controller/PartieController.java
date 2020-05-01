@@ -1,6 +1,7 @@
 package controller;
 
 import bo.Partie;
+import exception.EndGameException;
 import model.PartieBean;
 
 import javax.servlet.RequestDispatcher;
@@ -29,15 +30,18 @@ public class PartieController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession session = request.getSession(true);
-        Partie partieCourante = (Partie) session.getAttribute("currentGame");
-        if(partieCourante == null)
-        {
-            response.sendRedirect(request.getContextPath() + ACCUEIL_JSP);
-        } else {
+        PartieBean model = new PartieBean();
 
+        try {
+            if(!model.stockerResponseExpression(request))
+            {
+                response.sendRedirect(request.getContextPath() + ACCUEIL_JSP);
+            } else {
 
-            doGet(request, response);
+                doGet(request, response);
+            }
+        } catch (EndGameException e) {
+            e.printStackTrace();
         }
 
     }
