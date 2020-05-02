@@ -48,7 +48,7 @@
        <h4 style="text-align: center">${currentGame.listExpressions.get(sessionScope.currentExIn).afficherExpression()}</h4>
     </br>
         <form method="POST">
-            <input type="text" class="form-control-sm" name="form-response" required pattern="[0-9]">
+            <input type="text" class="form-control-sm" name="form-response" required pattern="[0-9]+([.][0-9]+)?">
             <button class="btn btn-block btn-primary" type="submit">Valider</button>
         </form>
     </div>

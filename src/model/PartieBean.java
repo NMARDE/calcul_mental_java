@@ -29,6 +29,8 @@ public class PartieBean implements Serializable {
      private Partie currentGame;
      private EndGameException exception;
 
+     private String response;
+
     public PartieBean() {}
 
 
@@ -73,10 +75,13 @@ public class PartieBean implements Serializable {
 
 
         int index = (int) session.getAttribute("currentExIn");
+        response = request.getParameter(RESPONSE_USER);
 
+        currentGame = (Partie)session.getAttribute("currentGame");
         Expression uneExpression = currentGame.getListExpressions().get(index);
-        uneExpression.setReponseUser((Double.parseDouble(RESPONSE_USER)));
+        uneExpression.setReponseUser((Double.parseDouble(response)));
         if (index >= 9) {
+
             DAOFactory.getPartieDAO().create(currentGame);
             exception = new EndGameException("Fin de partie.");
             throw exception;
