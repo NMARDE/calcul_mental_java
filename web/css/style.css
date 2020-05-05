@@ -9598,3 +9598,11 @@ color: white;
   margin-top: -300px;
 }
 
+.regles {
+  font-weight: bold;
+}
+
+.exemples {
+  font-weight: bold;
+  margin-left: 15px;
+}

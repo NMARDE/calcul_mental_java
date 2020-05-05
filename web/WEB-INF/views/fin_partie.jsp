@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" style="margin-top: -120px;">
     <div class="card card-container">
         <h3>Fin de partie</h3>
         <p>Votre score est de : ${currentGame.score}</p>
@@ -70,7 +70,7 @@
             </tbody>
         </table>
         <button class="btn btn-block btn-primary" type="submit">Rejouer</button>
-        <button class="btn btn-block btn-primary" type="submit">Retour à l'accueil</button>
+        <a class="btn btn-block btn-primary" href="<c:url value="/accueil" />">Retour à l'accueil</a>
     </div>
 </div>
 

@@ -41,18 +41,42 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="card card-container">
-        <h3>Calcul mental</h3>
-    </br>
-       <h4 style="text-align: center">${currentGame.listExpressions.get(sessionScope.currentExIn).afficherExpression()}</h4>
-    </br>
-        <form method="POST">
-            <input type="text" class="form-control" name="form-response" required pattern="[0-9]+([.][0-9]+)?">
-        </br>
-            <button class="btn btn-block btn-primary" type="submit">Valider</button>
-        </form>
+<div class="container" style="margin-top: -120px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6" >
+                    <div class="card card-container">
+                        <h3>Calcul mental</h3>
+                        <form method="POST">
+                            <label>Expression à calculer :</label> <h4>${currentGame.listExpressions.get(sessionScope.currentExIn).afficherExpression()}</h4>
+                            <input type="text" class="form-control" name="form-response" id="form-response" required pattern="[0-9]+([.][0-9]+)?"></span>
+                            </br>
+                            <button class="btn btn-block btn-primary" type="submit">Valider</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-container">
+                        <h3>Règles du jeu</h3>
+                        <p>Les calculs à effectuer seront générés <span style="font-weight: bold">automatiquement</span>.
+                            Ils pourront contenir <span style="font-weight: bold">plusieurs</span> opérateurs et <span style="font-weight: bold">plusieurs</span> opérandes.
+                            On considère une expression post-fixée sous forme d’une chaine de caractères pouvant comprendre :</p>
+                        <p>- les opérations binaires : <span style="font-weight: bold">+, -, *, /</span></p>
+                         <p>- les opérateurs unaires inverse et racine carrée notés <span style="font-weight: bold">inv</span> et <span style="font-weight: bold">rac</span></p>
+
+                        <p> Exemples :</p>
+                        <p style="font-weight: bold">-> 35 7 + 8 * rac</p>
+                        <p style="font-weight: bold">-> 4.25 8 – 3 rac *</p>
+
+                        <p> Pour effectuer le calcul, on va effectuer la première opération qui est : 35 7 + qui est égal à 42 (35+7).</p>
+                        <p> Ensuite le résultat de cette opération sera utilisée pour la prochaine opération qui est 42 8 * qui est égal à 336 (42 * 8).</p>
+                        <p>Et rebelote avec la dernière opération qui est 336 rac qui est égal à environ 18,330302780 (racine carrée de 336)</p>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/jquery.min.js"></script>
