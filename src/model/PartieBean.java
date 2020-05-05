@@ -9,6 +9,7 @@ import bo.Partie;
 import bo.Expression;
 import bo.Utilisateur;
 import dal.DAOFactory;
+import dal.IExpressionDAO;
 import exception.EndGameException;
 import exception.OperateurException;
 import exception.UserNotFound;
@@ -80,9 +81,14 @@ public class PartieBean implements Serializable {
         currentGame = (Partie)session.getAttribute("currentGame");
         Expression uneExpression = currentGame.getListExpressions().get(index);
         uneExpression.setReponseUser((Double.parseDouble(response)));
-        if (index >= 9) {
 
+        if (index >= 9) {
+            currentGame.setScore();
             DAOFactory.getPartieDAO().create(currentGame);
+            /*ArrayList<Expression> listExp = currentGame.getListExpressions();
+            for (Expression uneExp : listExp) {
+                DAOFactory.getExpressionDAO().create(uneExp);
+            }*/
             exception = new EndGameException("Fin de partie.");
             throw exception;
         } else {

@@ -17,6 +17,7 @@ import java.io.IOException;
 public class PartieController extends HttpServlet {
 
     private static final String PARTIE_JSP = "/WEB-INF/views/partie.jsp";
+    private static final String FIN_URL_PATTERN = "/fin_partie";
     private static final String ACCUEIL_JSP = "/WEB-INF/views/accueil.jsp";
     private static final String HOME_URL_PATTERN = "/partie";
 
@@ -41,6 +42,7 @@ public class PartieController extends HttpServlet {
                 doGet(request, response);
             }
         } catch (EndGameException e) {
+            response.sendRedirect(request.getContextPath() + FIN_URL_PATTERN);
             e.printStackTrace();
         }
 

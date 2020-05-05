@@ -12,12 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet( name = "AccueilController", urlPatterns = {"/accueil"} )
-public class AccueilController extends HttpServlet {
+@WebServlet (name="FinPartieController", urlPatterns = {"/fin_partie"})
+public class FinPartieController extends HttpServlet {
 
-    private static final String ACCUEIL_JSP = "/WEB-INF/views/accueil.jsp";
-    private static final String HOME_URL_PATTERN = "/accueil";
-    private static final String PARTIE_URL_PATTERN = "/partie";
+    private static final String FIN_JSP = "/WEB-INF/views/fin_partie.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,22 +29,8 @@ public class AccueilController extends HttpServlet {
             throwables.printStackTrace();
         }
 
-
         request.setAttribute("partieBean", model);
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( ACCUEIL_JSP );
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( FIN_JSP );
         dispatcher.forward( request, response );
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        PartieBean partieBean = new PartieBean();
-
-        partieBean.createPartie(request);
-
-
-
-        response.sendRedirect(request.getContextPath() + PARTIE_URL_PATTERN);
-
     }
 }

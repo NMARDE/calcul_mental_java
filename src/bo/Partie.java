@@ -119,4 +119,15 @@ public class Partie implements Serializable {
 		return difficulte;
 	}
 
+	public void setScore() {
+		int score = 0;
+		ArrayList<Expression> uneListExpressions = getListExpressions();
+		for (Expression uneExpression : uneListExpressions ) {
+			if (uneExpression.verifierResultat()) {
+				score++;
+			}
+		}
+		setScore(score);
+	}
+
 }

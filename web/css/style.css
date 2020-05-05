@@ -9593,3 +9593,8 @@ color: white;
   padding: 0.75rem;
   border-top: 1px solid #dee2e6;
 }
+
+.fin.card-container.card {
+  margin-top: -300px;
+}
+

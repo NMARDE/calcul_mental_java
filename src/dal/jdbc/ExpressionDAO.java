@@ -23,9 +23,8 @@ public class ExpressionDAO implements IExpressionDAO {
 			ps.setString( 1, expression.afficherExpression());
 			ps.setDouble( 2, expression.getResultatAttendu() );
 			ps.setDouble( 3, expression.getReponseUser() );
-			ps.setInt( 3, expression.getPartie().getId() );
-			try( ResultSet rs = ps.executeQuery() ) {
-			}
+			ps.setInt( 4, expression.getPartie().getId() );
+			int rs = ps.executeUpdate();
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}

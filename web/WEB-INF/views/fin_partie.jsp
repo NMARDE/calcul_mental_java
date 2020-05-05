@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: marde
-  Date: 22/04/2020
-  Time: 09:50
+  Date: 02/05/2020
+  Time: 12:23
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -33,6 +33,7 @@
 <body>
 
 <jsp:useBean id="currentGame" class="bo.Partie" scope="session"></jsp:useBean>
+<jsp:useBean id="partieBean" class="model.PartieBean" scope="request"></jsp:useBean>
 <div class="hero-wrap js-fullheight" style="background-image: url('img/fond.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -43,37 +44,35 @@
 
 <div class="container">
     <div class="card card-container">
-        <h3>Calcul mental</h3>
-    </br>
-       <h4 style="text-align: center">${currentGame.listExpressions.get(sessionScope.currentExIn).afficherExpression()}</h4>
-    </br>
-        <form method="POST">
-            <input type="text" class="form-control" name="form-response" required pattern="[0-9]+([.][0-9]+)?">
-        </br>
-            <button class="btn btn-block btn-primary" type="submit">Valider</button>
-        </form>
-    </div>
+        <h3>Fin de partie</h3>
+        <p>Votre score est de : ${currentGame.score}</p>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-migrate-3.0.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/jquery.stellar.min.js"></script>
-<script src="js/jquery.animateNumber.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/jquery.timepicker.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
-<script src="js/main.js"></script>
-<script>
-    $(document).foundation();
-    document.documentElement.setAttribute('data-useragent', navigator.userAgent);
-</script>
+        <h3>Les 10 meilleurs joueurs</h3>
+        </br>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Pseudo</th>
+                <th>Score</th>
+                <th>Difficulté</th>
+                <th>Temps</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="partie" items="${partieBean.bestScores}">
+                <tr>
+                    <td>${partie.user.nom}</td>
+                    <td>${partie.score}</td>
+                    <td>${partie.niveau}</td>
+                    <td>${partie.temps}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        <button class="btn btn-block btn-primary" type="submit">Rejouer</button>
+        <button class="btn btn-block btn-primary" type="submit">Retour à l'accueil</button>
+    </div>
+</div>
+
 </body>
 </html>
