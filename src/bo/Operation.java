@@ -102,16 +102,16 @@ public class Operation implements Serializable {
 
 		switch (operateur) {
 			case Somme:
-				resultat = pOperante + dOperante;
+				resultat = dOperante + pOperante  ;
 				break;
 			case Difference:
-				resultat = pOperante - dOperante;
+				resultat = dOperante - pOperante ;
 				break;
 			case Multiplcation:
 				resultat = pOperante * dOperante;
 				break;
 			case Division:
-				resultat = pOperante / dOperante;
+				resultat = dOperante / pOperante ;
 				break;
 			case Inverser:
 				resultat = 1 / pOperante;

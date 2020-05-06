@@ -51,13 +51,4 @@ public class FinPartieController extends HttpServlet {
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher( FIN_JSP );
         dispatcher.forward( request, response );
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        PartieBean partieBean = new PartieBean();
-        partieBean.createPartie(request);
-        response.sendRedirect(request.getContextPath() + PARTIE_URL_PATTERN);
-
-    }
 }

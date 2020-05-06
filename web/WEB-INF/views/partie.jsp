@@ -50,7 +50,7 @@
                         <h3>Calcul mental</h3>
                         <form method="POST">
                             <label>Expression à calculer :</label> <h4>${currentGame.listExpressions.get(sessionScope.currentExIn).afficherExpression()}</h4>
-                            <input type="text" class="form-control" name="form-response" id="form-response" required pattern="[0-9]+([.][0-9]+)?"></span>
+                            <input type="text" class="form-control" name="form-response" id="form-response" required pattern="^[+-]?[0-9]{1,9}(?:.[0-9]{0,16})?"></span>
                             </br>
                             <button class="btn btn-block btn-primary" type="submit">Valider</button>
                         </form>
@@ -65,13 +65,12 @@
                         <p>- les opérations binaires : <span style="font-weight: bold">+, -, *, /</span></p>
                          <p>- les opérateurs unaires inverse et racine carrée notés <span style="font-weight: bold">inv</span> et <span style="font-weight: bold">rac</span></p>
 
-                        <p> Exemples :</p>
+                        <p> Exemple d'expression de difficulté <span style="font-weight: bold"> DIFFICILE </span> :</p>
                         <p style="font-weight: bold">-> 35 7 + 8 * rac</p>
-                        <p style="font-weight: bold">-> 4.25 8 – 3 rac *</p>
 
-                        <p> Pour effectuer le calcul, on va effectuer la première opération qui est : 35 7 + qui est égal à 42 (35+7).</p>
-                        <p> Ensuite le résultat de cette opération sera utilisée pour la prochaine opération qui est 42 8 * qui est égal à 336 (42 * 8).</p>
-                        <p>Et rebelote avec la dernière opération qui est 336 rac qui est égal à environ 18,330302780 (racine carrée de 336)</p>
+                        <p> Pour effectuer le calcul, on va effectuer la première opération qui est : <span style="font-weight: bold">35 7</span> + qui est égal à <span style="font-weight: bold">42</span> (35+7).</p>
+                        <p> Ensuite le résultat de cette opération sera utilisée pour la prochaine opération qui est <span style="font-weight: bold">42 8 *</span> qui est égal à <span style="font-weight: bold">336</span> (42 * 8).</p>
+                        <p>Et rebelote avec la dernière opération qui est <span style="font-weight: bold">336 rac</span> qui est égal à environ <span style="font-weight: bold">18,330302780</span> (racine carrée de 336)</p>
                 </div>
             </div>
         </div>

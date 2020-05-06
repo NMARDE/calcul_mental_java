@@ -55,13 +55,19 @@
                             <h3>Nouvelle partie</h3>
                             </br>
                             <p>Choisir sa difficulté</p>
+
+                            <p>- Facile : 1 opération</p>
+                            <p>- Moyen : 2 opérations</p>
+                            <p>- Difficile : 3 opérations</p>
+                        </br>
                             <select class="form-control" name="select-difficulte">
-                                <option value="LEVEL1">Facile</option>
-                                <option value="LEVEL2">Moyen</option>
-                                <option value="LEVEL3">Difficile</option>
+                                <option value="LEVEL1">Facile (LEVEL1)</option>
+                                <option value="LEVEL2">Moyen (LEVEL2)</option>
+                                <option value="LEVEL3">Difficile (LEVEL3)</option>
                             </select>
                             </br>
                             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Jouer</button>
+
                         </form>
                     </div>
                 </div>
